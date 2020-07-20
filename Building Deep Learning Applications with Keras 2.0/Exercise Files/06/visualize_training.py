@@ -3,6 +3,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import *
 
+run = 'Run 1: 50 nodes'
 training_data_df = pd.read_csv("sales_data_training_scaled.csv")
 
 X = training_data_df.drop('total_earnings', axis=1).values
@@ -18,7 +19,7 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 
 # Create a TensorBoard logger
 logger = keras.callbacks.TensorBoard(
-    log_dir='logs',
+    log_dir='logs {}'.format(run),
     histogram_freq=5,
     write_graph=True
 )
