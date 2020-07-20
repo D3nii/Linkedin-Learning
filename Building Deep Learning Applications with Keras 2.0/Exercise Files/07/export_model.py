@@ -47,10 +47,10 @@ print("The mean squared error (MSE) for the test data set is: {}".format(test_er
 model_builder = tf.saved_model.builder.SavedModelBuilder("exported_model")
 
 inputs = {
-    'input': tf.saved_model.utils.build_tensor_info()
+    'input': tf.saved_model.utils.build_tensor_info(model.input)
 }
 outputs = {
-    'earnings': tf.saved_model.utils.build_tensor_info()
+    'earnings': tf.saved_model.utils.build_tensor_info(model.output)
 }
 
 signature_def = tf.saved_model.signature_def_utils.build_signature_def(
