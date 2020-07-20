@@ -17,7 +17,11 @@ model.add(Dense(1, activation='linear', name='output_layer'))
 model.compile(loss='mean_squared_error', optimizer='adam')
 
 # Create a TensorBoard logger
-
+logger = keras.callbacks.TensorBoard(
+    log_dir='logs',
+    write_graph=True,
+    histogram_freq=5
+)
 
 # Train the model
 model.fit(
@@ -25,7 +29,8 @@ model.fit(
     Y,
     epochs=50,
     shuffle=True,
-    verbose=2
+    verbose=2,
+    callbacks=[logger]
 )
 
 # Load the separate test data set
