@@ -3,28 +3,27 @@ from keras.preprocessing import image
 from keras.applications import resnet50
 
 # Load Keras' ResNet50 model that was pre-trained against the ImageNet database
-model =
+model = resnet50.ResNet50()
 
 # Load the image file, resizing it to 224x224 pixels (required by this model)
-img =
+img = image.load_img('bay.jpg', target_size=[244, 244])
 
 # Convert the image to a numpy array
-x =
+x = np.img_to_array(img)
 
 # Add a forth dimension since Keras expects a list of images
-x =
+x = np.expand_dims(x, axis=0)
 
 # Scale the input image to the range used in the trained network
-x =
+x = resnet50.preprocess_input(x)
 
 # Run the image through the deep neural network to make a prediction
-predictions =
+predictions = model.predict(x)
 
 # Look up the names of the predicted classes. Index zero is the results for the first image.
-predicted_classes =
+predicted_classes = resnet50.decode_predictions(predictions, top=9)
 
 print("This is an image of:")
 
 for imagenet_id, name, likelihood in predicted_classes[0]:
     print(" - {}: {:2f} likelihood".format(name, likelihood))
-
