@@ -101,6 +101,7 @@ with tf.Session() as session:
     # session.run(tf.global_variables_initializer())
 
     # Instead, load them from disk:
+    saver.restore(session, 'logs/trained_model.ckpt')
 
     print("Trained model loaded from disk.")
 
