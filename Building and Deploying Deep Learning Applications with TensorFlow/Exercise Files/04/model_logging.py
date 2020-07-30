@@ -89,8 +89,8 @@ with tf.variable_scope('train'):
 
 # Create a summary operation to log the progress of the network
 with tf.variable_scope('logging'):
-
-
+    tf.summart.scalar('current_cost', cost)
+    summary = tf.summary.merge_all()
 
 # Initialize a session so that we can run TensorFlow operations
 with tf.Session() as session:
@@ -100,8 +100,8 @@ with tf.Session() as session:
 
     # Create log file writers to record training progress.
     # We'll store training and testing log data separately.
-    training_writer =
-    testing_writer =
+    training_writer = tf.summary.FileWriter('./logs/training', session.graph)
+    testing_writer = tf.summary.FileWriter('./logs/testing', session.graph)
 
     # Run the optimizer over and over to train the network.
     # One epoch is one full run through the training data set.
@@ -113,11 +113,12 @@ with tf.Session() as session:
         # Every 5 training steps, log our progress
         if epoch % 5 == 0:
             # Get the current accuracy scores by running the "cost" operation on the training and test data sets
-            training_cost = session.run(cost, feed_dict={X: X_scaled_training, Y:Y_scaled_training})
-            testing_cost = session.run(cost, feed_dict={X: X_scaled_testing, Y:Y_scaled_testing})
+            training_cost, training_summary = session.run(cost, summary, feed_dict={X: X_scaled_training, Y:Y_scaled_training})
+            testing_cost, testing_summary = session.run(cost, summary, feed_dict={X: X_scaled_testing, Y:Y_scaled_testing})
 
             # Write the current training status to the log files (Which we can view with TensorBoard)
-
+            training_writer.add_summary(training_summary, epoch)
+            testing_writer.add_summary(testing_summary, epoch)
 
 
             # Print the current training status to the screen
