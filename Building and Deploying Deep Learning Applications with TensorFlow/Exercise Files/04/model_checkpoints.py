@@ -92,7 +92,7 @@ with tf.variable_scope('logging'):
     tf.summary.scalar('current_cost', cost)
     summary = tf.summary.merge_all()
 
-saver =
+saver = tf.train.Saver()
 
 # Initialize a session so that we can run TensorFlow operations
 with tf.Session() as session:
@@ -147,5 +147,5 @@ with tf.Session() as session:
     print("The actual earnings of Game #1 were ${}".format(real_earnings))
     print("Our neural network predicted earnings of ${}".format(predicted_earnings))
 
-    save_path =
+    save_path = saver.save(session, './logs/trained_model.ckpt')
     print("Model saved: {}".format(save_path))
