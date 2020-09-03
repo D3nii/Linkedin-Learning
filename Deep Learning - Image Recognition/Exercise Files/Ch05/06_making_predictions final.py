@@ -15,7 +15,7 @@ model = model_from_json(model_structure)
 model.load_weights("model_weights.h5")
 
 # Load an image file to test, resizing it to 64x64 pixels (as required by this model)
-img = image.load_img("not_dog.png", target_size=(64, 64))
+img = image.load_img("not_dog.png", target_size=(64,64))
 
 # Convert the image to a numpy array
 image_array = image.img_to_array(img)
